@@ -1,0 +1,15 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+  <div class="card mx-auto mt-5" style="max-width: 400px;">
+    <div class="card-header">
+      <h5 class="card-title text-center">New patient card</h5>
+    </div>
+    <%= render "form", patient_card: @patient_card %>
+    <div>
+    <div class="card-footer text-center">
+    <%= link_to "Back to patient cards", patient_cards_path, class: 'btn btn-secondary' %>
+  </div>
+  </div>
+  </div>
+</div>

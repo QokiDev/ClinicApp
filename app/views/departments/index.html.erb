@@ -1,0 +1,139 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-success"><%= notice %></p>
+      <h1>Departments</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 style_for_pages">
+      <%= form_with(url: departments_path, method: :get) do |form| %>
+        <div class="input-group mb-3">
+          <%= form.text_field :query, placeholder: 'Search departments', class: 'form-control' %>
+          <div class="input-group-append">
+            <%= form.submit 'Search', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 style_for_pages" id="departments">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Founding Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @departments.each do |department| %>
+            <tr>
+              <td><%= department.name %></td>
+              <td><%= department.address %></td>
+              <td><%= department.founding_date.strftime("%Y-%m-%d") %></td>
+              <td>
+                <%= link_to "Show", department, class: 'btn btn-info' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
+<div class="row">
+  <div class="col-12 text-center">
+    <nav aria-label="Pagination">
+      <ul class="pagination justify-content-center">
+        <% if @departments.previous_page %>
+          <li class="page-item">
+            <%= link_to '← Previous', departments_path(page: @departments.previous_page), class: 'page-link' %>
+          </li>
+        <% else %>
+          <li class="page-item disabled">
+            <span class="page-link">← Previous</span>
+          </li>
+        <% end %>
+
+        <% visible_pages = 5 %>
+        <% half_visible_pages = (visible_pages / 2).floor %>
+        <% start_page = [@departments.current_page - half_visible_pages, 1].max %>
+        <% end_page = [start_page + visible_pages - 1, @departments.total_pages].min %>
+
+        <% if start_page > 1 %>
+          <li class="page-item">
+            <%= link_to '1', departments_path(page: 1), class: 'page-link' %>
+          </li>
+          <% if start_page > 2 %>
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% (start_page..end_page).each do |page| %>
+          <% if @departments.current_page == page %>
+            <li class="page-item active">
+              <span class="page-link"><%= page %></span>
+            </li>
+          <% else %>
+            <li class="page-item">
+              <%= link_to page, departments_path(page: page), class: 'page-link' %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% if end_page < @departments.total_pages %>
+          <% if end_page < @departments.total_pages - 1 %>
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          <% end %>
+          <li class="page-item">
+            <%= link_to @departments.total_pages, departments_path(page: @departments.total_pages), class: 'page-link' %>
+          </li>
+        <% end %>
+
+        <% if @departments.next_page %>
+          <li class="page-item">
+            <%= link_to 'Next →', departments_path(page: @departments.next_page), class: 'page-link' %>
+          </li>
+        <% else %>
+          <li class="page-item disabled">
+            <span class="page-link">Next →</span>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+  <div class="row mt-2">
+    <div class="col-12 text-center">
+      <p>Sort by:</p>
+      <p>
+        <%= link_to 'Name (asc)', { sort_field: 'name', sort_direction: 'asc' }, class: 'btn btn-outline-primary mr-2' %>
+        <%= link_to 'Name (desc)', { sort_field: 'name', sort_direction: 'desc' }, class: 'btn btn-outline-primary mr-2' %>
+        <%= link_to 'Created at (asc)', { sort_field: 'created_at', sort_direction: 'asc' }, class: 'btn btn-outline-primary mr-2' %>
+        <%= link_to 'Created at (desc)', { sort_field: 'created_at', sort_direction: 'desc' }, class: 'btn btn-outline-primary mr-2' %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <p>
+        <%= link_to 'New department', new_department_path, class: 'btn btn-primary' %>
+      </p>
+    </div>
+  </div>
+</div>

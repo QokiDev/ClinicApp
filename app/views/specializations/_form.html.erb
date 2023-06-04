@@ -1,0 +1,25 @@
+<div class="card-body">
+<%= form_with(model: specialization, class: 'needs-validation', novalidate: true) do |form| %>
+  <% if specialization.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(specialization.errors.count, "error") %> prohibited this specialization from being saved:</h2>
+
+      <ul>
+        <% specialization.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+      <%= form.label :name, class: 'form-label' %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="text-center">
+      <%= form.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+

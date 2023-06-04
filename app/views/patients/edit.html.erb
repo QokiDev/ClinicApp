@@ -1,0 +1,21 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+  <div class="card mx-auto mt-5" style="max-width: 400px;">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title text-center">Editing patient</h5>
+    </div>
+    <div class="card-body">
+      <p class="text-success text-center"><%= notice %></p>
+
+      <div>
+      <%= render "form", patient: @patient %>
+      </div>
+      <div class="text-center">
+        <%= link_to "Show this patient", @patient, class: 'btn btn-primary mb-2' %>
+        <%= link_to "Back to patients", patients_path, class: 'btn btn-secondary ml-2 mb-2' %>
+      </div>
+    </div>
+  </div>
+</div>
+

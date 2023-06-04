@@ -1,0 +1,143 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <p class="text-success"><%= notice %></p>
+      <h1>Doctors</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 style_for_pages">
+      <%= form_with(url: doctors_path, method: :get) do |form| %>
+        <div class="input-group mb-3">
+          <%= form.text_field :query, placeholder: 'Search doctors', class: 'form-control' %>
+          <div class="input-group-append">
+            <%= form.submit 'Search', class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 style_for_pages">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Doctor Name</th>
+            <th>Doctor Specialty</th>
+            <th>Doctor Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @doctors.each do |doctor| %>
+            <tr>
+            <td><%= doctor.name %></td>
+            <td><%= doctor.specialization.name %></td>
+            <td>
+              <%= link_to "Show this doctor", doctor, class: 'btn btn-info' %>
+            </td>
+          </tr>
+          
+          <% end %>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+
+
+
+  <div class="row">
+  <div class="col-12 text-center">
+    <nav aria-label="Pagination">
+      <ul class="pagination justify-content-center">
+        <% if @doctors.previous_page %>
+          <li class="page-item">
+            <%= link_to '← Previous', doctors_path(page: @doctors.previous_page), class: 'page-link' %>
+          </li>
+        <% else %>
+          <li class="page-item disabled">
+            <span class="page-link">← Previous</span>
+          </li>
+        <% end %>
+
+        <% visible_pages = 5 %>
+        <% half_visible_pages = (visible_pages / 2).floor %>
+        <% start_page = [@doctors.current_page - half_visible_pages, 1].max %>
+        <% end_page = [start_page + visible_pages - 1, @doctors.total_pages].min %>
+
+        <% if start_page > 1 %>
+          <li class="page-item">
+            <%= link_to '1', doctors_path(page: 1), class: 'page-link' %>
+          </li>
+          <% if start_page > 2 %>
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% (start_page..end_page).each do |page| %>
+          <% if @doctors.current_page == page %>
+            <li class="page-item active">
+              <span class="page-link"><%= page %></span>
+            </li>
+          <% else %>
+            <li class="page-item">
+              <%= link_to page, doctors_path(page: page), class: 'page-link' %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% if end_page < @doctors.total_pages %>
+          <% if end_page < @doctors.total_pages - 1 %>
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          <% end %>
+          <li class="page-item">
+            <%= link_to @doctors.total_pages, doctors_path(page: @doctors.total_pages), class: 'page-link' %>
+          </li>
+        <% end %>
+
+        <% if @doctors.next_page %>
+          <li class="page-item">
+            <%= link_to 'Next →', doctors_path(page: @doctors.next_page), class: 'page-link' %>
+          </li>
+        <% else %>
+          <li class="page-item disabled">
+            <span class="page-link">Next →</span>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+
+<!-- 
+<div class="row">
+<div class="col-12 text-center">
+  <%= link_to "New doctor", new_doctor_path, class: 'btn btn-primary' %>
+</div>
+</div>
+-->
+
+<div class="row mt-2">
+<div class="col-12">
+  <div class="col-12 text-center"> Sort by:
+    <p class="mt-2">
+      <%= link_to 'Name (asc)', { sort_field: 'name', sort_direction: 'asc' }, class: 'btn btn-outline-primary mr-2' %>
+      <%= link_to 'Name (desc)', { sort_field: 'name', sort_direction: 'desc' }, class: 'btn btn-outline-primary mr-2' %>
+      <%= link_to 'Created at (asc)', { sort_field: 'created_at', sort_direction: 'asc' }, class: 'btn btn-outline-primary mr-2' %>
+      <%= link_to 'Created at (desc)', { sort_field: 'created_at', sort_direction: 'desc' }, class: 'btn btn-outline-primary mr-2' %>
+    </p>
+  </div>
+</div>
+</div>
+
+

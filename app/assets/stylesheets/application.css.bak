@@ -1,0 +1,44 @@
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.style_for_pages {
+    margin: 20px;
+    width: 100%;
+}
+
+.style_for_pages th,
+.style_for_pages td {
+    padding: 8px;
+}
+
+.style_for_pages th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.style_for_pages td {
+    border-bottom: 1px solid #ddd;
+}
+
+.style_for_pages td:last-child {
+    text-align: center;
+}
+
+.style_for_pages a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.style_for_pages a:hover {
+    text-decoration: underline;
+}
+
+.style_for_pages form {
+    display: inline-block;
+}

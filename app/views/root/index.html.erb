@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="card mx-auto mt-5" style="max-width: 500px;">
+    <div class="card-header">
+      <h5 class="card-title text-center">Welcome to Clinic App</h5>
+    </div>
+    <div class="card-body text-center">
+    <ul class="list-group">
+    <li class="list-group-item">
+      <%= link_to 'Doctors', doctors_path, class: 'btn btn-primary btn-block' %>
+    </li>
+    <li class="list-group-item">
+      <%= link_to 'Patients', patients_path, class: 'btn btn-primary btn-block' %>
+    </li>
+    <li class="list-group-item">
+      <%= link_to 'Departments', departments_path, class: 'btn btn-primary btn-block' %>
+    </li>
+    <li class="list-group-item">
+      <%= link_to 'Patient Cards', patient_cards_path, class: 'btn btn-primary btn-block' %>
+    </li>
+    <li class="list-group-item">
+      <%= link_to 'Specialization', specializations_path, class: 'btn btn-primary btn-block' %>
+    </li>
+  </ul>
+      <% if user_signed_in? %>
+        <div class="mt-4">
+          <div class="nav-item">
+            <span class="navbar-text">Welcome, <%= current_user.email %></span>
+          </div>
+          <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'btn btn-danger mt-3' %>
+        </div>
+      <% else %>
+        <%= button_to "Sign in", new_user_session_path, class: 'btn btn-primary mt-3' %>
+      <% end %>
+    </div>
+  </div>
+</div>

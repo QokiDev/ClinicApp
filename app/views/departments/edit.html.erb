@@ -1,0 +1,20 @@
+<%= render 'shared/header' %>
+
+<div class="container">
+  <div class="card mx-auto mt-5" style="max-width: 450px;">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title text-center">Editing department</h5>
+    </div>
+    <div class="card-body">
+      <p class="text-success text-center"><%= notice %></p>
+
+      <div>
+      <%= render "form", department: @department %>
+      </div>
+      <div class="text-center">
+      <%= link_to "Show this department", @department, class: 'btn btn-primary mb-2' %>
+      <%= link_to "Back to departments", departments_path, class: 'btn btn-secondary ml-2 mb-2' %>
+      </div>
+    </div>
+  </div>
+</div>
